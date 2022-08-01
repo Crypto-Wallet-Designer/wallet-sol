@@ -46,7 +46,7 @@ abstract contract AbstractWallet {
         bytes32 msgHash = hashReplace(n, originalKey, newKey);
         require(isAuthorized(msgHash, signatures), "Not Authorized");
         nonce = n + 1;
-        keys[newKey] = key[originalKey];
+        keys[newKey] = keys[originalKey];
         keys[originalKey] = 0;
     }
 
