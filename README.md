@@ -1,13 +1,12 @@
-# Sample Hardhat Project
+# Smart Contracts for Crypto Wallet Designer
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+To run this repository execute:
+``` shell
+npm install
+npx hardhat compile
+```
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-GAS_REPORT=true npx hardhat test
-npx hardhat node
+To deploy the contracts in a blockchain execute:
+``` shell
 npx hardhat run scripts/deploy.ts
 ```
