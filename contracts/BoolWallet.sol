@@ -20,5 +20,5 @@ abstract contract BoolWallet is AbstractWallet {
         return boolAuthorized(hasSig);
     }
 
-    function boolAuthorized(bool[] memory hasSig) internal pure virtual returns (bool);
+    function boolAuthorized(bool[] memory hasSig) internal view virtual returns (bool);
 }
