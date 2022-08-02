@@ -12,6 +12,10 @@ abstract contract AbstractWallet {
 
     }
 
+    function getNonce() public view returns (uint) {
+        return nonce;
+    }
+
     function isAuthorized(bytes32 msgHash, bytes[] calldata signatures) internal virtual returns (bool);
 
     function transfer(address payable destination, uint amount, bytes[] calldata signatures) external {
