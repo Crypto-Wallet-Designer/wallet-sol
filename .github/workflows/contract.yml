@@ -1,0 +1,14 @@
+name: Compile Contracts
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Install Hardhat
+        run: npm install --save-dev hardhat
+      - name: Compile
+        run: npx hardhat compile
+      - name: Test
+        run: npx hardhat test
