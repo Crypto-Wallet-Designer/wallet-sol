@@ -6,7 +6,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Install Hardhar
+      - name: Install Hardhat
         run: npm install --save-dev hardhat
       - name: Compile
         run: npx hardhat compile
