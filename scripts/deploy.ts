@@ -1,10 +1,10 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const Lock = await ethers.getContractFactory("SampleThreeWallet");
-  const lock = await Lock.deploy(["0xFABB0ac9d68B0B445fB7357272Ff202C5651694a"], );
+  const sampleThree = await ethers.getContractFactory("SampleThreeWallet");
+  const deployedSampleThree = await sampleThree.deploy(["0xFABB0ac9d68B0B445fB7357272Ff202C5651694a"], );
 
-  await lock.deployed();
+  await deployedSampleThree.deployed();
 }
 
 // We recommend this pattern to be able to use async/await everywhere
