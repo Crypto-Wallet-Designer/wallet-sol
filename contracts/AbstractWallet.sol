@@ -11,6 +11,8 @@ abstract contract AbstractWallet {
         }
 
     }
+    
+    receive() external payable { }
 
     function getNonce() public view returns (uint) {
         return nonce;
@@ -26,7 +28,7 @@ abstract contract AbstractWallet {
         destination.transfer(amount);
     }
 
-    function hashTransfer(uint n, address destination, uint amount) internal pure returns (bytes32) {
+    function hashTransfer(uint n, address destination, uint amount) public pure returns (bytes32) {
         return keccak256(abi.encodePacked("transfer", n, destination, amount));
     }
 
@@ -39,7 +41,7 @@ abstract contract AbstractWallet {
         require(success, string(errMsg));
     }
 
-    function hashCall(uint n, address destination, bytes calldata cd, uint amount) internal pure returns (bytes32) {
+    function hashCall(uint n, address destination, bytes calldata cd, uint amount) public pure returns (bytes32) {
         return keccak256(abi.encodePacked("call", n, destination, cd, amount));
     }
 
@@ -54,7 +56,7 @@ abstract contract AbstractWallet {
         keys[originalKey] = 0;
     }
 
-    function hashReplace(uint n, address a, address b) internal pure returns (bytes32) {
+    function hashReplace(uint n, address a, address b) public pure returns (bytes32) {
         return keccak256(abi.encodePacked("replace", n, a, b));
     }
 
