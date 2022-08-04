@@ -31,6 +31,8 @@ describe("MoNWalletTest", function () {
       expect(await stw.getNonce()).to.eq(0);
       const ONE_ETHER = ethers.utils.parseEther("1.0");
       const TWO_ETHER = ethers.utils.parseEther("2.0");
+      const THREE_ETHER = ethers.utils.parseEther("3.0");
+      const FOUR_ETHER = ethers.utils.parseEther("4.0");
       const FIVE_ETHER = ethers.utils.parseEther("5.0");
 
       await transferToAddress(stw.address,FIVE_ETHER);
@@ -39,7 +41,14 @@ describe("MoNWalletTest", function () {
       expect(await ethers.provider.getBalance(WALLET_SIX.address)).to.equal(ONE_ETHER);
       await walletTransfer(stw, [KEY_ONE, KEY_THREE], WALLET_SIX.address, ONE_ETHER);
       expect(await ethers.provider.getBalance(WALLET_SIX.address)).to.equal(TWO_ETHER);
-      // expect(await walletTransfer(stw, [KEY_ONE], WALLET_SIX.address, ONE_ETHER)).to.revertedWith("Not Authorized");
+      await walletTransfer(stw, [KEY_TWO, KEY_THREE], WALLET_SIX.address, ONE_ETHER);
+      expect(await ethers.provider.getBalance(WALLET_SIX.address)).to.equal(THREE_ETHER);
+      await walletTransfer(stw, [KEY_ONE, KEY_TWO, KEY_THREE], WALLET_SIX.address, ONE_ETHER);
+      expect(await ethers.provider.getBalance(WALLET_SIX.address)).to.equal(FOUR_ETHER);
+      expect(walletTransfer(stw, [KEY_ONE], WALLET_SIX.address, ONE_ETHER)).to.revertedWith("Not Authorized");
+      expect(walletTransfer(stw, [KEY_ONE, KEY_ONE], WALLET_SIX.address, ONE_ETHER)).to.revertedWith("Not Authorized");
+      expect(walletTransfer(stw, [], WALLET_SIX.address, ONE_ETHER)).to.revertedWith("Not Authorized");
+      expect(walletTransfer(stw, [KEY_SIX, KEY_FIVE], WALLET_SIX.address, ONE_ETHER)).to.revertedWith("Not Authorized");
 
     });
   });
