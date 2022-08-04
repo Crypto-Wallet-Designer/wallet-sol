@@ -51,7 +51,7 @@ function sign(key: any, msgHash: any) {
 export {
     WALLET_ONE, WALLET_TWO, WALLET_THREE, WALLET_FOUR, WALLET_FIVE, WALLET_SIX,
     KEY_ONE, KEY_TWO, KEY_THREE, KEY_FOUR, KEY_FIVE, KEY_SIX,
-    transferTo, sign, walletTransfer, transferToAddress
+    transferTo, sign, walletTransfer, transferToAddress, keyReplace
 }
 
 async function walletTransfer(wallet: any, keys: any[], dest: any, amount: BigNumber) {
@@ -62,4 +62,11 @@ async function walletTransfer(wallet: any, keys: any[], dest: any, amount: BigNu
         sigs.push(sign(key, msgHash));
     }
     return wallet.transfer(dest, amount, sigs, { gasLimit: 30000000 });
+}
+
+async function keyReplace(wallet: any, oldKey: any, newKey: any) {
+    let nonce = await wallet.getNonce();
+    let msgHash = await wallet.hashReplace(nonce, oldKey.getPublic, newKey.getPublic);
+    let sig = sign(oldKey, msgHash)
+    return wallet.replace(oldKey.getPublic, newKey.getPublic, sig)
 }
