@@ -6,6 +6,7 @@ let sha3 = require('js-sha3');
 let ec = new elliptic.ec('secp256k1');
 
 
+// wallets and keys are generated with same set of secret keys
 const WALLET_ONE = new ethers.Wallet("0x222a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be01", ethers.provider);
 const WALLET_TWO = new ethers.Wallet("0x222a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be02", ethers.provider);
 const WALLET_THREE = new ethers.Wallet("0x222a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be03", ethers.provider);
