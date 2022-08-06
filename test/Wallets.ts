@@ -22,44 +22,41 @@ const KEY_SIX = ec.keyFromPrivate("222a55949038a9610f50fb23b5883af3b4ecb3c3bb792
 
 
 async function transferTo(w: Wallet, amount: BigNumber) {
-    await transferToAddress(w.address, amount);
+  await transferToAddress(w.address, amount);
 }
 
 async function transferToAddress(addr: string, amount: BigNumber) {
-    const signer = (await ethers.getSigners()).at(0);
+  const signer = (await ethers.getSigners()).at(0);
 
-    if (signer) {
+  if (signer) {
     let tx = await signer.sendTransaction({
-        to: addr,
-        value: amount,
-        gasLimit: 50000
+      to: addr,
+      value: amount,
+      gasLimit: 50000
     });}
-
-
 }
 
 function sign(key: any, msgHash: any) {
-    let privKey = key.getPrivate("hex");
-    let sig = ec.sign(msgHash.substring(2), privKey, "hex", {canonical: true});
-    let arr = sig.r.toArray("little", 32);
-    arr = arr.concat(sig.s.toArray("little", 32));
-    arr.push(sig.recoveryParam + 27);
-    return arr;
-
+  let privKey = key.getPrivate("hex");
+  let sig = ec.sign(msgHash.substring(2), privKey, "hex", {canonical: true});
+  let arr = sig.r.toArray("little", 32);
+  arr = arr.concat(sig.s.toArray("little", 32));
+  arr.push(sig.recoveryParam + 27);
+  return arr;
 }
 
 export {
-    WALLET_ONE, WALLET_TWO, WALLET_THREE, WALLET_FOUR, WALLET_FIVE, WALLET_SIX,
-    KEY_ONE, KEY_TWO, KEY_THREE, KEY_FOUR, KEY_FIVE, KEY_SIX,
-    transferTo, sign, walletTransfer, transferToAddress
+  WALLET_ONE, WALLET_TWO, WALLET_THREE, WALLET_FOUR, WALLET_FIVE, WALLET_SIX,
+  KEY_ONE, KEY_TWO, KEY_THREE, KEY_FOUR, KEY_FIVE, KEY_SIX,
+  transferTo, sign, walletTransfer, transferToAddress
 }
 
 async function walletTransfer(wallet: any, keys: any[], dest: any, amount: BigNumber) {
-    let nonce = await wallet.getNonce();
-    let msgHash = await wallet.hashTransfer(nonce, dest, amount);
-    let sigs = [];
-    for(var key of keys) {
-        sigs.push(sign(key, msgHash));
-    }
-    return wallet.transfer(dest, amount, sigs);
+  let nonce = await wallet.getNonce();
+  let msgHash = await wallet.hashTransfer(nonce, dest, amount);
+  let sigs = [];
+  for(var key of keys) {
+    sigs.push(sign(key, msgHash));
+  }
+  return wallet.transfer(dest, amount, sigs);
 }
