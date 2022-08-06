@@ -61,5 +61,5 @@ async function walletTransfer(wallet: any, keys: any[], dest: any, amount: BigNu
     for(var key of keys) {
         sigs.push(sign(key, msgHash));
     }
-    return wallet.transfer(dest, amount, sigs, { gasLimit: 30000000 });
+    return wallet.transfer(dest, amount, sigs);
 }
