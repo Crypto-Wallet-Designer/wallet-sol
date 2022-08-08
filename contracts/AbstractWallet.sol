@@ -17,6 +17,10 @@ abstract contract AbstractWallet {
         return nonce;
     }
 
+    function returnPublickeyIndex(address pubKey) public view returns (uint) {
+        return keys[pubKey];
+    }
+
     function isAuthorized(bytes32 msgHash, bytes[] calldata signatures) internal virtual returns (bool);
 
     function requireAuthorized(bytes32 msgHash, bytes[] calldata signatures) internal {

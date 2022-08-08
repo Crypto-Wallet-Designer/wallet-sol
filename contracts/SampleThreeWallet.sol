@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
+import "hardhat/console.sol";
+
+// We copy all the thing in one file to make auto contract generation on website easier
 
 abstract contract AbstractWallet {
     uint nonce;
@@ -15,6 +18,11 @@ abstract contract AbstractWallet {
 
     function getNonce() public view returns (uint) {
         return nonce;
+    }
+
+    function returnPublickeyIndex(address pubKey) public view returns (uint) {
+        // console.log(keys[pubKey]);
+        return keys[pubKey];
     }
 
     function isAuthorized(bytes32 msgHash, bytes[] calldata signatures) internal virtual returns (bool);
