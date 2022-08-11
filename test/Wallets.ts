@@ -65,7 +65,7 @@ async function walletTransfer(wallet: any, keys: any[], dest: any, amount: BigNu
     return wallet.transfer(dest, amount, sigs);
 }
 
-async function keyReplace(wallet: any, oldPubKey: any, newPubKey: any, keys[]: any) {
+async function keyReplace(wallet: any, oldPubKey: any, newPubKey: any, keys: any[]) {
     let nonce = await wallet.getNonce();
     let msgHash = await wallet.hashReplace(nonce, oldPubKey, newPubKey);
     let sigs = [];

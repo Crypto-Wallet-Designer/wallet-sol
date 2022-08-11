@@ -30,11 +30,12 @@ describe("KeyReplaceTest", function () {
         expect(stw.address).contains("0x");
         expect(await stw.getNonce()).to.eq(0);
         // console.log((WALLET_ONE.address))
-        console.log("Check the public key in wallet")
+        console.log("       Check first the public key in wallet is key one")
         expect(await stw.returnPublickeyIndex(WALLET_ONE.address)).to.eq(1);
-        console.log("Now we have the KEY_ONE(pub) in wallet")
-        console.log("Start to replace key")
-        await keyReplace(stw, WALLET_ONE.address, WALLET_FIVE.address, KEY_ONE);
+        console.log("       Now we have the KEY_ONE(pub) in wallet")
+        console.log("       Start to replace key")
+        await keyReplace(stw, WALLET_ONE.address, WALLET_FIVE.address, [KEY_ONE, KEY_TWO]);
+        console.log("       Now the first key is key five")
         expect(await stw.returnPublickeyIndex(WALLET_FIVE.address)).to.eq(1);
 
     });
